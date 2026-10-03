@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinVoice — Just say it. FinVoice plans the rest.</title>
+  <meta name="description" content="FinVoice is a voice-first personal money management and AI planning application. Manage your income, expenses, bills, and subscriptions with your voice.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%238b5cf6%22/><circle cx=%2250%22 cy=%2250%22 r=%2225%22 fill=%22%2306b6d4%22/></svg>">
+</head>
+<body>
+
+  <!-- Background Ambient Glow -->
+  <div style="position:fixed; top:-100px; left:20%; width:400px; height:400px; background:radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%); pointer-events:none; z-index:0;"></div>
+  <div style="position:fixed; bottom:-100px; right:10%; width:450px; height:450px; background:radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%); pointer-events:none; z-index:0;"></div>
+
+  <div id="app">
+
+    <!-- Global App Header -->
+    <header class="app-header">
+      <div class="brand-wrapper" id="header-brand-logo">
+        <div class="brand-logo-orb">
+          <svg width="20" height="20" fill="none" stroke="#FFFFFF" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-name gradient-text">FinVoice</span>
+          <span class="brand-tagline-sub">Voice AI Money Planner</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Quick Add Expense button -->
+        <button class="btn-primary" style="padding: 7px 14px; font-size: 0.82rem;" id="header-quick-add-btn">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+          <span>Add</span>
+        </button>
+
+        <!-- Notification Bell with dynamic badge -->
+        <button class="header-btn" id="header-notif-btn" title="Notifications">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <span class="notif-badge" id="header-notif-badge"></span>
+        </button>
+
+        <!-- User profile button -->
+        <div class="user-avatar-btn" id="header-user-btn">
+          <div class="user-avatar-img" id="header-user-avatar">A</div>
+          <span id="header-user-name">Arjun</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==========================================================================
+         VIEW 0: WELCOME / SPLASH SCREEN (FIRST SCREEN ON APP OPEN)
+         ========================================================================== -->
+    <section id="view-splash" class="view-container active">
+      <div class="welcome-splash-hero">
+        <!-- Ambient Glowing Aura -->
+        <div class="welcome-bg-glow-1"></div>
+        <div class="welcome-bg-glow-2"></div>
+
+        <div class="welcome-splash-content">
+          <!-- Text and Action Column (Left on Desktop, Top/Bottom on Mobile) -->
+          <div class="welcome-col-text">
+            <!-- 1. FinVoice Brand Logo (Fades In) -->
+            <div class="welcome-brand-badge" id="welcome-logo-anim">
+              <div class="welcome-brand-orb">
+                <svg width="22" height="22" fill="none" stroke="#FFFFFF" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                  <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                  <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+              </div>
+              <span class="welcome-brand-name">FinVoice</span>
+            </div>
+
+            <!-- 2. Main Title (Appears Smoothly) -->
+            <h1 class="welcome-headline" id="welcome-title-anim">
+              Welcome to <span class="gradient-text">FinVoice</span>
+            </h1>
+
+            <!-- 3. Tagline -->
+            <div class="welcome-tagline-quote" id="welcome-tagline-anim">
+              “Your money. Your voice. Your plan.”
+            </div>
+
+            <!-- 4. Small Supporting Text -->
+            <p class="welcome-subtext" id="welcome-support-anim">
+              “Manage your money simply with FinVoice.”
+            </p>
+
+            <!-- 5. Main Action Button: Continue (Smooth Fade-in) -->
+            <div class="welcome-btn-wrapper" id="welcome-btn-anim">
+              <button class="btn-primary welcome-continue-cta" id="welcome-splash-continue-btn">
+                <span>Continue</span>
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Trust / Feature Indicators -->
+            <div class="welcome-features-list">
+              <div class="welcome-feature-badge">
+                <span class="welcome-badge-dot dot-cyan"></span>
+                <span>Voice AI Intelligence</span>
+              </div>
+              <div class="welcome-feature-badge">
+                <span class="welcome-badge-dot dot-violet"></span>
+                <span>Safe-to-Spend Guard</span>
+              </div>
+              <div class="welcome-feature-badge">
+                <span class="welcome-badge-dot dot-mint"></span>
+                <span>Smart Auto-Planning</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Illustration & Prominent ORB Column (Right on Desktop, Center on Mobile) -->
+          <div class="welcome-col-visual" id="welcome-visual-anim">
+            <div class="welcome-card-glass">
+              <!-- Radial background glow -->
+              <div class="welcome-card-glow"></div>
+
+              <!-- Finance + AI Illustration Wrapper (Has Subtle Floating Animation) -->
+              <div class="welcome-illustration-stage">
+                <!-- Rich Artwork: Voice AI, Smartphone, Wallet, Graph, Coins -->
+                <div class="welcome-artwork-frame">
+                  <img 
+                    src="assets/welcome-illustration.jpg" 
+                    alt="FinVoice AI Voice Money Illustration" 
+                    class="welcome-artwork-media"
+                  />
+                  
+                  <!-- Prominent Voice ORB Visual Layer with Gentle Pulsing Animation -->
+                  <div class="welcome-orb-prominent-layer">
+                    <div class="welcome-orb-wave-ring r3"></div>
+                    <div class="welcome-orb-wave-ring r2"></div>
+                    <div class="welcome-orb-wave-ring r1"></div>
+                    <div class="welcome-orb-core">
+                      <svg width="34" height="34" fill="none" stroke="#FFFFFF" stroke-width="2.3" viewBox="0 0 24 24">
+                        <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                        <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <!-- Floating Glass Badges for Live Financial Elements -->
+                  <div class="welcome-float-chip chip-wallet">
+                    <span class="chip-emoji">💳</span>
+                    <div class="chip-text">
+                      <span class="chip-label">Smart Wallet</span>
+                      <span class="chip-val">₹30,000 Portfolio</span>
+                    </div>
+                  </div>
+
+                  <div class="welcome-float-chip chip-voice">
+                    <span class="chip-emoji">🎙️</span>
+                    <div class="chip-text">
+                      <span class="chip-label">“Log ₹450 Grocery”</span>
+                      <span class="chip-val text-mint">Categorized ✨</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mandatory Text Under the ORB Visual -->
+              <div class="welcome-orb-subcaption">
+                “Your voice. Your finances. One simple app.”
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 1: WELCOME SCREEN (FIRST IMPRESSION & HERO)
+         ========================================================================== -->
+    <main id="view-welcome" class="view-container">
+      <div class="welcome-hero">
+        <!-- Hero Voice Orb Showcase -->
+        <div class="hero-orb-showcase">
+          <div class="hero-orb-ring-2"></div>
+          <div class="hero-orb-ring-1"></div>
+          <div class="hero-orb-sphere"></div>
+          <div style="position:absolute; z-index:2;">
+            <svg width="44" height="44" fill="none" stroke="#FFFFFF" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+              <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+            </svg>
+          </div>
+        </div>
+
+        <h1 class="welcome-title gradient-text">FinVoice</h1>
+        <div class="welcome-tagline">“Just say it. FinVoice plans the rest.”</div>
+        <p class="welcome-desc">
+          Manage your income, expenses, bills and subscriptions with your voice — and let your personal planning agent help you organize your money.
+        </p>
+
+        <div class="welcome-cta-group">
+          <button class="btn-primary" id="welcome-get-started-btn">
+            <span>Get Started</span>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <button class="btn-secondary" id="welcome-login-btn">
+            I already have an account
+          </button>
+          <button class="btn-demo-quick" id="welcome-demo-btn">
+            <span>⚡ Instant Demo Preview (Pre-filled ₹30,000 Portfolio)</span>
+          </button>
+        </div>
+
+        <div class="hero-features-grid">
+          <div class="hero-feature-item">
+            <span class="hero-feature-icon">🎙️</span>
+            <span class="hero-feature-label">Voice Interaction</span>
+          </div>
+          <div class="hero-feature-item">
+            <span class="hero-feature-icon">🧠</span>
+            <span class="hero-feature-label">AI Planning Agent</span>
+          </div>
+          <div class="hero-feature-item">
+            <span class="hero-feature-icon">💰</span>
+            <span class="hero-feature-label">Savings Shield</span>
+          </div>
+          <div class="hero-feature-item">
+            <span class="hero-feature-icon">📊</span>
+            <span class="hero-feature-label">10 Categories</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ==========================================================================
+         VIEW: ONBOARDING / PERSONAL FINANCE PROFILE (5-STEP WIZARD)
+         ========================================================================== -->
+    <section id="view-onboarding" class="view-container">
+      <div style="max-width: 540px; margin: 20px auto;">
+        <!-- Steps Indicator Bar -->
+        <div class="onboarding-steps-bar">
+          <div class="step-indicator active" id="step-indicator-1"></div>
+          <div class="step-indicator" id="step-indicator-2"></div>
+          <div class="step-indicator" id="step-indicator-3"></div>
+          <div class="step-indicator" id="step-indicator-4"></div>
+          <div class="step-indicator" id="step-indicator-5"></div>
+        </div>
+
+        <!-- Step 1: Tell us about yourself -->
+        <div class="glass-card" id="onboarding-step-1" style="padding: 28px;">
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; text-transform:uppercase;">Step 1 of 5</span>
+          <h2 style="font-size:1.6rem; margin:6px 0 16px;">Tell us about yourself</h2>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:20px;">FinVoice personalizes your plan around your life stage and profile.</p>
+
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="onb-name" placeholder="e.g. Arjun Sharma" value="Arjun Sharma">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Age</label>
+            <input type="number" class="form-control" id="onb-age" placeholder="26" value="26">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Employment Status</label>
+            <div class="selectable-chips-group" id="onb-employment-group">
+              <span class="select-chip" data-val="Student">Student</span>
+              <span class="select-chip selected" data-val="Employee">Employee</span>
+              <span class="select-chip" data-val="Self-employed">Self-employed</span>
+              <span class="select-chip" data-val="Other">Other</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Marital Status</label>
+            <div class="selectable-chips-group" id="onb-marital-group">
+              <span class="select-chip selected" data-val="Single">Single</span>
+              <span class="select-chip" data-val="Married">Married</span>
+              <span class="select-chip" data-val="Other">Other</span>
+            </div>
+          </div>
+
+          <button class="btn-primary" style="width:100%; margin-top:20px;" id="onb-step1-next">Continue to Income →</button>
+        </div>
+
+        <!-- Step 2: Your income -->
+        <div class="glass-card" id="onboarding-step-2" style="padding: 28px; display:none;">
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; text-transform:uppercase;">Step 2 of 5</span>
+          <h2 style="font-size:1.6rem; margin:6px 0 16px;">Your Income</h2>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:20px;">How much money flows into your accounts regularly?</p>
+
+          <div class="form-group">
+            <label class="form-label">Monthly Salary / Primary Income (₹)</label>
+            <input type="number" class="form-control" id="onb-monthly-income" placeholder="30000" value="30000">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Other Monthly Income (Freelance, side income, rental) (₹)</label>
+            <input type="number" class="form-control" id="onb-other-income" placeholder="0" value="0">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Income Frequency</label>
+            <div class="selectable-chips-group" id="onb-frequency-group">
+              <span class="select-chip selected" data-val="Monthly">Monthly</span>
+              <span class="select-chip" data-val="Bi-weekly">Bi-weekly</span>
+              <span class="select-chip" data-val="Irregular">Irregular</span>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn-secondary" style="flex:1;" id="onb-step2-back">Back</button>
+            <button class="btn-primary" style="flex:2;" id="onb-step2-next">Continue to Housing →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Your housing -->
+        <div class="glass-card" id="onboarding-step-3" style="padding: 28px; display:none;">
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; text-transform:uppercase;">Step 3 of 5</span>
+          <h2 style="font-size:1.6rem; margin:6px 0 16px;">Your Housing</h2>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:20px;">Housing is usually your largest fixed commitment.</p>
+
+          <div class="form-group">
+            <label class="form-label">Monthly Rent (₹)</label>
+            <input type="number" class="form-control" id="onb-rent" placeholder="6000" value="6000">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Home Loan EMI if applicable (₹)</label>
+            <input type="number" class="form-control" id="onb-home-loan" placeholder="0" value="0">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Other Housing Expenses (Maintenance, society) (₹)</label>
+            <input type="number" class="form-control" id="onb-other-housing" placeholder="0" value="0">
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn-secondary" style="flex:1;" id="onb-step3-back">Back</button>
+            <button class="btn-primary" style="flex:2;" id="onb-step3-next">Continue to Commitments →</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Your regular commitments -->
+        <div class="glass-card" id="onboarding-step-4" style="padding: 28px; display:none;">
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; text-transform:uppercase;">Step 4 of 5</span>
+          <h2 style="font-size:1.6rem; margin:6px 0 16px;">Regular Commitments</h2>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:20px;">Select recurring expenses you want FinVoice to protect in your monthly plan.</p>
+
+          <div class="selectable-chips-group" id="onb-commitments-group">
+            <span class="select-chip selected" data-val="Bills">⚡ Electricity & Utility Bills</span>
+            <span class="select-chip selected" data-val="Subscriptions">📱 Subscriptions (Netflix, Spotify)</span>
+            <span class="select-chip selected" data-val="Insurance">🛡️ Health & Life Insurance</span>
+            <span class="select-chip" data-val="Education">🎓 Education & Skill Courses</span>
+            <span class="select-chip selected" data-val="Transportation">🚗 Daily Transport / Metro</span>
+            <span class="select-chip" data-val="Other">📦 Other Recurring</span>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:24px;">
+            <button class="btn-secondary" style="flex:1;" id="onb-step4-back">Back</button>
+            <button class="btn-primary" style="flex:2;" id="onb-step4-next">Continue to Priorities →</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Your financial priorities -->
+        <div class="glass-card" id="onboarding-step-5" style="padding: 28px; display:none;">
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:700; text-transform:uppercase;">Step 5 of 5</span>
+          <h2 style="font-size:1.6rem; margin:6px 0 16px;">Financial Priorities</h2>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:20px;">Select what matters most right now so the Planning Agent tunes its algorithm.</p>
+
+          <div class="selectable-chips-group" id="onb-priorities-group">
+            <span class="select-chip selected" data-val="Save money">💰 Save money</span>
+            <span class="select-chip selected" data-val="Control expenses">🛑 Control expenses</span>
+            <span class="select-chip selected" data-val="Build emergency fund">🚨 Build emergency fund</span>
+            <span class="select-chip" data-val="Manage subscriptions">📱 Manage subscriptions</span>
+            <span class="select-chip" data-val="Reduce unnecessary spending">✂️ Reduce unnecessary spending</span>
+            <span class="select-chip selected" data-val="Plan monthly budget">📊 Plan monthly budget</span>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:24px;">
+            <button class="btn-secondary" style="flex:1;" id="onb-step5-back">Back</button>
+            <button class="btn-primary" style="flex:2;" id="onb-finish-btn">Build My FinVoice Profile 🚀</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 2: MAIN DASHBOARD
+         ========================================================================== -->
+    <section id="view-dashboard" class="view-container">
+      <!-- Greeting Bar -->
+      <div class="greeting-bar">
+        <div class="greeting-text">
+          <h2 id="dashboard-greeting-title">Good evening, Arjun</h2>
+          <div class="greeting-date" id="dashboard-current-date">Today • Voice-Powered Planning Active</div>
+        </div>
+        <button class="btn-secondary" style="padding:6px 14px; font-size:0.8rem;" id="dash-replan-shortcut-btn">
+          🧠 Plan My Money
+        </button>
+      </div>
+
+      <!-- Metrics Grid (Income, Total Spent, Remaining, Safe to Spend) -->
+      <div class="metrics-grid">
+        <div class="glass-card metric-card metric-income">
+          <div class="metric-header">
+            <span class="metric-title">Monthly Income</span>
+            <span class="metric-badge">Income</span>
+          </div>
+          <div class="metric-value" id="metric-income-val">₹30,000</div>
+          <div class="metric-sub">Primary inflow this month</div>
+        </div>
+
+        <div class="glass-card metric-card metric-spent">
+          <div class="metric-header">
+            <span class="metric-title">Total Spent</span>
+            <span class="metric-badge">Expenses</span>
+          </div>
+          <div class="metric-value" id="metric-spent-val">₹18,500</div>
+          <div class="metric-sub">Tracked across all categories</div>
+        </div>
+
+        <div class="glass-card metric-card metric-remaining">
+          <div class="metric-header">
+            <span class="metric-title">Remaining</span>
+            <span class="metric-badge">Balance</span>
+          </div>
+          <div class="metric-value" id="metric-remaining-val">₹11,500</div>
+          <div class="metric-sub">Unspent monthly liquidity</div>
+        </div>
+
+        <div class="glass-card metric-card metric-safe">
+          <div class="metric-header">
+            <span class="metric-title">Safe to Spend</span>
+            <span class="metric-badge">Weekly</span>
+          </div>
+          <div class="metric-value" id="metric-safe-val">₹2,875</div>
+          <div class="metric-sub">Recommended 7-day safe cap</div>
+        </div>
+      </div>
+
+      <!-- Dynamic AI Insight Card: "FinVoice says" -->
+      <div class="finvoice-says-card">
+        <div class="finvoice-says-icon">🎙️</div>
+        <div class="finvoice-says-content">
+          <h4>FinVoice says <span style="font-size:0.75rem; color:#A78BFA; font-weight:400;">(Dynamic AI Insight)</span></h4>
+          <p class="finvoice-says-text" id="finvoice-says-text">
+            “You are spending more on entertainment this month. Consider keeping the remaining entertainment budget within ₹1,500.”
+          </p>
+        </div>
+      </div>
+
+      <!-- Dashboard Split: Spending Ring + Planning Agent Reco -->
+      <div class="dashboard-split">
+        <!-- Visual Spending Ring -->
+        <div class="glass-card spending-ring-card">
+          <div style="font-weight:700; font-size:1.05rem; margin-bottom:4px;">Monthly Spending Pace</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Current consumption of total monthly budget</div>
+
+          <div class="ring-wrapper">
+            <svg class="ring-svg" viewBox="0 0 160 160">
+              <defs>
+                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#8b5cf6" />
+                  <stop offset="100%" stop-color="#06b6d4" />
+                </linearGradient>
+              </defs>
+              <circle class="ring-bg" cx="80" cy="80" r="70" fill="none" />
+              <circle class="ring-fill" id="budget-ring-circle" cx="80" cy="80" r="70" fill="none" />
+            </svg>
+            <div class="ring-center-content">
+              <span class="ring-percent" id="budget-ring-percent">62%</span>
+              <span class="ring-label">Consumed</span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; width:100%; font-size:0.82rem; padding:0 12px;">
+            <span style="color:var(--income-mint);">● In Budget</span>
+            <span style="color:var(--text-muted);">Calculated in Real-Time</span>
+          </div>
+        </div>
+
+        <!-- Planning Agent Recommendation card -->
+        <div class="glass-card" style="padding:22px;" id="dashboard-plan-recommendation">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Quick Action Pills -->
+      <div class="quick-action-strip">
+        <button class="action-pill" id="quick-say-groceries">🛒 "Spent 450 on groceries"</button>
+        <button class="action-pill" id="quick-say-rent">🏠 "Paid 6000 rent"</button>
+        <button class="action-pill" id="quick-say-clothes">🛍️ "Bought clothes for 1200"</button>
+        <button class="action-pill" id="quick-say-netflix">🍿 "Paid Netflix subscription"</button>
+        <button class="action-pill" id="quick-say-salary">💰 "Received salary of 30000"</button>
+        <button class="action-pill" id="quick-say-safe">💡 "How much can I spend this week?"</button>
+      </div>
+
+      <!-- Financial Categories (10 Categories Grid) -->
+      <div class="section-header-row">
+        <h3>Financial Categories</h3>
+        <span class="section-link" id="dash-see-plan-link">Adjust in Planning Agent →</span>
+      </div>
+      <div class="categories-grid" id="dashboard-categories-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Bottom Split: Upcoming Bills & Recent Expenses -->
+      <div class="dashboard-split" style="margin-top:10px;">
+        <!-- Upcoming Bills -->
+        <div>
+          <div class="section-header-row">
+            <h3>Upcoming Bills</h3>
+            <span class="section-link" id="dash-view-bills-link">Manage All →</span>
+          </div>
+          <div id="dashboard-bills-preview">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Recent Expenses -->
+        <div>
+          <div class="section-header-row">
+            <h3>Recent Expenses</h3>
+            <span class="section-link" id="dash-view-all-tx-link">Full Ledger →</span>
+          </div>
+          <div id="dashboard-recent-tx">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 3: MONEY / TRANSACTIONS / BILLS / SUBSCRIPTIONS / INSURANCE
+         ========================================================================== -->
+    <section id="view-money" class="view-container">
+      <div class="subtabs-bar">
+        <button class="subtab-btn active" data-subtab="transactions">Transactions</button>
+        <button class="subtab-btn" data-subtab="bills">Bills</button>
+        <button class="subtab-btn" data-subtab="subscriptions">Subscriptions</button>
+        <button class="subtab-btn" data-subtab="insurance">Insurance</button>
+      </div>
+
+      <!-- Subtab 1: Transactions -->
+      <div id="money-section-transactions">
+        <div class="search-filter-bar">
+          <div class="search-input-wrap">
+            <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" id="tx-search-input" placeholder="Search expenses, voice notes, categories...">
+          </div>
+          <select class="filter-select" id="tx-filter-category">
+            <option value="all">All Categories</option>
+            <option value="Food & Groceries">Food & Groceries</option>
+            <option value="Housing">Housing</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Bills & Utilities">Bills & Utilities</option>
+            <option value="Subscriptions">Subscriptions</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Education">Education</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Emergency">Emergency</option>
+            <option value="Income">Income</option>
+          </select>
+          <select class="filter-select" id="tx-filter-type">
+            <option value="all">All Types</option>
+            <option value="expense">Expenses Only</option>
+            <option value="income">Income Only</option>
+          </select>
+          <button class="btn-primary" style="padding:8px 16px; font-size:0.85rem;" id="tx-add-btn">
+            + Add Expense
+          </button>
+        </div>
+
+        <div id="all-transactions-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Subtab 2: Bills -->
+      <div id="money-section-bills" style="display:none;">
+        <div class="section-header-row">
+          <div>
+            <h3>Recurring & Utility Bills</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Keep your utilities protected before due dates.</p>
+          </div>
+          <button class="btn-primary" style="padding:8px 16px; font-size:0.85rem;" id="bills-add-new-btn">
+            + Add Bill
+          </button>
+        </div>
+        <div id="bills-list-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Subtab 3: Subscriptions -->
+      <div id="money-section-subscriptions" style="display:none;">
+        <div class="metrics-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:16px;">
+          <div class="glass-card" style="padding:16px;">
+            <div class="metric-title">Monthly Subscription Cost</div>
+            <div class="metric-value" style="color:var(--accent-violet);" id="sub-monthly-total">₹1,250</div>
+          </div>
+          <div class="glass-card" style="padding:16px;">
+            <div class="metric-title">Yearly Subscription Cost</div>
+            <div class="metric-value" style="color:var(--accent-cyan);" id="sub-yearly-total">₹15,000</div>
+          </div>
+        </div>
+
+        <!-- Subscription Insight -->
+        <div class="glass-card" style="padding:14px 18px; margin-bottom:16px; border-left:3px solid var(--accent-violet);">
+          <span id="sub-insight-banner">You have 4 active subscriptions costing ₹1,250/month.</span>
+        </div>
+
+        <div class="section-header-row">
+          <h3>Active Subscriptions</h3>
+          <button class="btn-primary" style="padding:8px 16px; font-size:0.85rem;" id="sub-add-new-btn">
+            + Add Subscription
+          </button>
+        </div>
+        <div id="subscriptions-list-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Subtab 4: Insurance -->
+      <div id="money-section-insurance" style="display:none;">
+        <div class="section-header-row">
+          <div>
+            <h3>Insurance Policies</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Protected medical, life, and asset shields.</p>
+          </div>
+          <button class="btn-primary" style="padding:8px 16px; font-size:0.85rem;" id="ins-add-new-btn">
+            + Add Policy
+          </button>
+        </div>
+        <div id="insurance-list-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 4: PLANNING AGENT ("Plan My Money" - Core Innovation)
+         ========================================================================== -->
+    <section id="view-plan" class="view-container">
+      <div class="planning-hero-box">
+        <div class="planning-ai-badge">🧠 Intelligent Financial Optimization</div>
+        <h2 style="font-size:2rem; margin-bottom:8px;">Plan My Money</h2>
+        <p style="font-size:0.95rem; color:var(--text-secondary); max-width:580px;">
+          The FinVoice Planning Agent analyzes your actual income, previous expenses, recurring bills, subscriptions, insurance, and priorities to organize every rupee.
+        </p>
+
+        <!-- Focus Mode Switcher -->
+        <div class="focus-mode-switcher">
+          <button class="focus-tab active" data-focus="balanced">Balanced 50/30/20</button>
+          <button class="focus-tab" data-focus="aggressive_savings">Aggressive Wealth Saver</button>
+          <button class="focus-tab" data-focus="emergency_shield">Emergency Shield Priority</button>
+        </div>
+
+        <button class="plan-my-money-btn" id="plan-agent-recalculate-btn">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Calculate Personalized Plan</span>
+        </button>
+      </div>
+
+      <!-- Adaptive Notice Callout -->
+      <div class="adaptive-notice-box">
+        <div style="font-size:1.4rem;">💡</div>
+        <div>
+          <div style="font-weight:700; font-size:0.9rem; color:#FFFFFF; margin-bottom:4px;">Adaptive Learning Notice</div>
+          <div id="plan-adaptive-insights-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Summary Numbers -->
+      <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="glass-card metric-card metric-income">
+          <div class="metric-title">Monthly Income</div>
+          <div class="metric-value" id="plan-income-val">₹30,000</div>
+          <div class="metric-sub">Total planned pool</div>
+        </div>
+        <div class="glass-card metric-card metric-safe">
+          <div class="metric-title">Savings & Wealth</div>
+          <div class="metric-value" id="plan-savings-val">₹5,000</div>
+          <div class="metric-sub">Target monthly surplus</div>
+        </div>
+        <div class="glass-card metric-card metric-remaining">
+          <div class="metric-title">Emergency Shield</div>
+          <div class="metric-value" id="plan-emergency-val">₹2,000</div>
+          <div class="metric-sub">Liquid cushion reserve</div>
+        </div>
+      </div>
+
+      <div style="margin:20px 0 12px; font-size:0.9rem; color:var(--text-secondary); font-style:italic;" id="plan-explanation-text">
+        “Your plan is based on your recent spending patterns and monthly income.”
+      </div>
+
+      <!-- Category Allocations List -->
+      <div class="section-header-row">
+        <h3>Recommended Category Allocations</h3>
+        <button class="btn-secondary" style="padding:6px 14px; font-size:0.8rem;" id="plan-edit-allocations-btn">
+          ✏️ Edit Plan
+        </button>
+      </div>
+      <div id="plan-categories-allocation-list">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Actions Bar -->
+      <div class="plan-actions-bar">
+        <div style="display:flex; gap:10px;">
+          <button class="btn-secondary" id="plan-regenerate-btn">🔄 Regenerate Plan</button>
+          <button class="btn-primary" id="plan-accept-btn">✓ Accept Plan</button>
+        </div>
+        <span style="font-size:0.75rem; color:var(--text-muted);">
+          Adjustable anytime based on income and spend velocity.
+        </span>
+      </div>
+
+      <!-- Safe Financial Language Disclaimer -->
+      <div style="margin-top:30px; padding:14px; border-radius:var(--radius-md); background:rgba(0,0,0,0.3); border:1px solid var(--border-glass); font-size:0.76rem; color:var(--text-muted); text-align:center;">
+        🛡️ Educational Disclaimer: FinVoice is a personal money planning and organizational tool. It does not provide professional financial or investment advisory services.
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 5: INSIGHTS
+         ========================================================================== -->
+    <section id="view-insights" class="view-container">
+      <div class="section-header-row" style="margin-bottom:20px;">
+        <div>
+          <h2>Financial Insights</h2>
+          <p style="font-size:0.85rem; color:var(--text-secondary);">AI-driven pattern intelligence tailored to your financial habits.</p>
+        </div>
+      </div>
+      <div id="insights-cards-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 6: PROFILE & SETTINGS
+         ========================================================================== -->
+    <section id="view-profile" class="view-container">
+      <div class="glass-card" style="padding:24px; margin-bottom:20px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:18px;">
+          <div class="user-avatar-img" style="width:56px; height:56px; font-size:1.5rem;">A</div>
+          <div>
+            <h3 id="profile-display-name">Arjun Sharma</h3>
+            <div style="font-size:0.85rem; color:var(--text-muted);" id="profile-display-email">arjun.sharma@example.com</div>
+            <div style="font-size:0.82rem; color:var(--accent-cyan); margin-top:4px;" id="profile-display-income">₹30,000 / month</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <span style="font-size:0.82rem; font-weight:600; color:var(--text-secondary);">Your Financial Priorities</span>
+          <div class="selectable-chips-group" id="profile-display-priorities" style="margin-top:6px;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <button class="btn-secondary" style="padding:6px 14px; font-size:0.8rem; margin-top:8px;" id="profile-edit-onb-btn">
+          Edit Profile & Priorities
+        </button>
+      </div>
+
+      <!-- App Settings -->
+      <div class="glass-card" style="padding:24px; margin-bottom:20px;">
+        <h3 style="font-size:1.1rem; margin-bottom:16px;">Preferences & Settings</h3>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-glass);">
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Nightly Expense Reminder</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Notify in the evening if no expenses logged today</div>
+          </div>
+          <input type="checkbox" id="setting-nightly-toggle" checked style="width:18px; height:18px; accent-color:var(--accent-violet);">
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-glass);">
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Voice Audio Feedback</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Speak confirmations using natural speech synthesis</div>
+          </div>
+          <input type="checkbox" id="setting-voice-toggle" checked style="width:18px; height:18px; accent-color:var(--accent-cyan);">
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0;">
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Currency Display</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Indian Rupee (₹)</div>
+          </div>
+          <select class="filter-select" id="setting-currency-select" style="padding:4px 10px;">
+            <option value="₹">₹ (INR)</option>
+            <option value="$">$ (USD)</option>
+            <option value="€">€ (EUR)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Data Management & Privacy -->
+      <div class="glass-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-size:1.1rem; margin-bottom:12px;">Demo & Storage</h3>
+        <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:16px;">
+          FinVoice keeps your financial records associated with your authenticated profile. All financial data is user-provided and securely stored.
+        </p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn-demo-quick" id="profile-load-demo-btn">
+            🔄 Reload Realistic Demo Portfolio (₹30,000)
+          </button>
+          <button class="btn-secondary" style="color:var(--expense-coral); border-color:rgba(244,63,94,0.3);" id="profile-reset-btn">
+            Clear All Data
+          </button>
+          <button class="btn-secondary" id="profile-logout-btn">
+            Log Out
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BOTTOM NAVIGATION BAR (WITH FLOATING VOICE ORB IN CENTER)
+         ========================================================================== -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>Home</span>
+      </button>
+
+      <button class="nav-item" data-view="money">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Money</span>
+      </button>
+
+      <!-- Center Floating Voice ORB -->
+      <div class="floating-orb-container">
+        <div class="orb-pulse-ring-outer"></div>
+        <div class="orb-pulse-ring"></div>
+        <button class="voice-orb" id="global-voice-orb-btn" title="Speak to FinVoice ORB">
+          <svg class="orb-inner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </button>
+      </div>
+
+      <button class="nav-item" data-view="plan">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+        <span>Plan</span>
+      </button>
+
+      <button class="nav-item" data-view="insights">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        <span>Insights</span>
+      </button>
+
+      <button class="nav-item" data-view="profile">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+    <!-- ==========================================================================
+         NIGHTLY EXPENSE REMINDER TOAST
+         ========================================================================== -->
+    <div id="nightly-reminder-toast" class="nightly-reminder-toast" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="font-size:1.3rem;">🌙</span>
+          <span style="font-weight:700; font-size:0.92rem; color:var(--upcoming-amber);">FinVoice Reminder</span>
+        </div>
+        <button style="background:none; border:none; color:var(--text-muted); cursor:pointer;" id="reminder-close-btn">✕</button>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-highlight);">
+        “Looks like you haven't recorded today's expenses yet. Want to update them?”
+      </p>
+      <div style="display:flex; gap:8px;">
+        <button class="btn-primary" style="padding:6px 14px; font-size:0.78rem;" id="reminder-use-voice-btn">
+          🎙️ Use Voice
+        </button>
+        <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem;" id="reminder-add-expense-btn">
+          + Add Expense
+        </button>
+        <button class="btn-secondary" style="padding:6px 14px; font-size:0.78rem;" id="reminder-later-btn">
+          Later
+        </button>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         NOTIFICATION CENTER DRAWER
+         ========================================================================== -->
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <div class="drawer-panel" id="notifications-drawer">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3>Notifications</h3>
+        <button class="modal-close-btn" id="close-drawer-btn" style="position:static;">✕</button>
+      </div>
+      <div style="display:flex; justify-content:flex-end; margin-bottom:12px;">
+        <button style="background:none; border:none; color:var(--accent-cyan); font-size:0.78rem; cursor:pointer;" id="mark-all-read-btn">Mark all read</button>
+      </div>
+      <div style="flex:1; overflow-y:auto;" id="drawer-notif-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: AUTHENTICATION (LOGIN / CREATE ACCOUNT / GOOGLE)
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-auth">
+      <div class="modal-panel">
+        <button class="modal-close-btn" id="auth-modal-close">✕</button>
+        
+        <div style="text-align:center; margin-bottom:20px;">
+          <h2 id="auth-title">Welcome to FinVoice</h2>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;" id="auth-subtitle">
+            Sign in to start voice planning
+          </p>
+        </div>
+
+        <div style="display:flex; background:rgba(0,0,0,0.3); padding:4px; border-radius:var(--radius-full); margin-bottom:18px;">
+          <button class="focus-tab active" style="flex:1;" id="auth-tab-login">Login</button>
+          <button class="focus-tab" style="flex:1;" id="auth-tab-signup">Create Account</button>
+        </div>
+
+        <!-- Google Sign-In Button -->
+        <button class="btn-secondary" style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:16px;" id="auth-google-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <div style="flex:1; height:1px; background:var(--border-glass);"></div>
+          <span style="font-size:0.75rem; color:var(--text-muted);">OR WITH EMAIL</span>
+          <div style="flex:1; height:1px; background:var(--border-glass);"></div>
+        </div>
+
+        <form id="auth-form">
+          <div class="form-group" id="auth-name-group" style="display:none;">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="auth-name-input" placeholder="Arjun Sharma">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="auth-email-input" placeholder="name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" id="auth-password-input" placeholder="••••••••" required>
+          </div>
+
+          <div class="form-group" id="auth-confirm-group" style="display:none;">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="auth-confirm-input" placeholder="••••••••">
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; margin-bottom:14px;" id="auth-forgot-wrap">
+            <a href="#" style="font-size:0.78rem; color:var(--accent-cyan); text-decoration:none;" id="auth-forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;" id="auth-submit-btn">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: VOICE INTERACTION (BIG ORB & REAL-TIME TRANSCRIPT)
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-voice">
+      <div class="modal-panel" style="max-width:440px;">
+        <button class="modal-close-btn" id="voice-modal-close">✕</button>
+
+        <div class="voice-modal-content">
+          <div class="voice-large-orb-wrap">
+            <div class="voice-large-orb" id="voice-modal-orb">
+              <svg width="40" height="40" fill="none" stroke="#FFFFFF" stroke-width="2.2" viewBox="0 0 24 24">
+                <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+              </svg>
+            </div>
+          </div>
+
+          <div style="font-size:0.95rem; color:var(--text-secondary); margin-bottom:8px;" id="voice-modal-status-text">
+            Listening to you...
+          </div>
+
+          <div class="transcript-display" id="voice-modal-transcript">
+            Speak an expense, query, or command...
+          </div>
+
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">
+            Or tap any sample command to test instantly:
+          </div>
+
+          <div class="voice-suggested-prompts">
+            <span class="prompt-chip" data-say="Spent 450 on groceries">"Spent 450 on groceries"</span>
+            <span class="prompt-chip" data-say="Paid 6000 rent">"Paid 6000 rent"</span>
+            <span class="prompt-chip" data-say="Bought clothes for 1200">"Bought clothes for 1200"</span>
+            <span class="prompt-chip" data-say="Paid my Netflix subscription">"Paid Netflix subscription"</span>
+            <span class="prompt-chip" data-say="Received salary of 30000">"Received salary of 30000"</span>
+            <span class="prompt-chip" data-say="How much can I spend this week?">"Safe to spend this week?"</span>
+            <span class="prompt-chip" data-say="Plan my money for this month">"Plan my money"</span>
+            <span class="prompt-chip" data-say="Spent 450">"Spent 450" (Ambiguity Test)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: VOICE UNDERSTOOD / CONFIRMATION ("I understood")
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-voice-understood">
+      <div class="modal-panel" style="max-width:440px;">
+        <button class="modal-close-btn" id="understood-modal-close">✕</button>
+
+        <div style="text-align:center; margin-bottom:12px;">
+          <div style="display:inline-flex; align-items:center; gap:6px; color:var(--income-mint); font-weight:700; font-size:1.1rem;">
+            <span>✓</span> I understood
+          </div>
+        </div>
+
+        <div class="understood-card">
+          <div class="understood-row">
+            <span class="understood-label">Type</span>
+            <span class="understood-value" id="understood-type">Expense</span>
+          </div>
+          <div class="understood-row">
+            <span class="understood-label">Amount</span>
+            <span class="understood-value" id="understood-amount" style="color:var(--expense-coral); font-size:1.1rem;">₹450</span>
+          </div>
+          <div class="understood-row">
+            <span class="understood-label">Category</span>
+            <span class="understood-value" id="understood-category">Food & Groceries</span>
+          </div>
+          <div class="understood-row">
+            <span class="understood-label">Account</span>
+            <span class="understood-value" id="understood-account">Cash / UPI</span>
+          </div>
+          <div class="understood-row">
+            <span class="understood-label">Date</span>
+            <span class="understood-value" id="understood-date">Today</span>
+          </div>
+          <div class="understood-row">
+            <span class="understood-label">Transcript</span>
+            <span class="understood-value" id="understood-transcript" style="font-weight:400; font-style:italic;">“Spent 450 on groceries.”</span>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:20px;">
+          <button class="btn-secondary" style="flex:1;" id="understood-edit-btn">Edit</button>
+          <button class="btn-primary" style="flex:1;" id="understood-confirm-btn">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: VOICE CLARIFICATION (Ambiguity Resolution)
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-voice-clarify">
+      <div class="modal-panel" style="max-width:440px;">
+        <button class="modal-close-btn" id="clarify-modal-close">✕</button>
+
+        <div style="text-align:center;">
+          <div style="font-size:2rem; margin-bottom:8px;">🤔</div>
+          <h3 style="font-size:1.15rem; margin-bottom:6px;">Need Clarification</h3>
+          <p style="font-size:0.9rem; color:var(--text-highlight);" id="clarify-heard-text">
+            “I heard ₹450, but I’m not sure which category you meant.”
+          </p>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;" id="clarify-transcript-sub">
+            Transcript: "Spent 450"
+          </div>
+        </div>
+
+        <div class="clarify-options-grid" id="clarify-options-container">
+          <!-- Dynamically populated candidate categories -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: MANUAL ADD EXPENSE
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-add-expense">
+      <div class="modal-panel">
+        <button class="modal-close-btn" id="add-exp-modal-close">✕</button>
+        <h3 style="margin-bottom:16px;">Add Financial Record</h3>
+
+        <form id="add-expense-form">
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <div class="selectable-chips-group">
+              <span class="select-chip selected" id="exp-type-expense" data-type="expense">Expense</span>
+              <span class="select-chip" id="exp-type-income" data-type="income">Income</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Amount (₹)</label>
+            <input type="number" class="form-control" id="form-exp-amount" placeholder="450" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select class="form-control" id="form-exp-category">
+              <option value="Food & Groceries">Food & Groceries</option>
+              <option value="Housing">Housing</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Bills & Utilities">Bills & Utilities</option>
+              <option value="Subscriptions">Subscriptions</option>
+              <option value="Insurance">Insurance</option>
+              <option value="Education">Education</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Emergency">Emergency</option>
+              <option value="Income">Salary / Income</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Payment Method / Account</label>
+            <select class="form-control" id="form-exp-payment">
+              <option value="UPI">UPI (GPay / PhonePe / Paytm)</option>
+              <option value="Card">Debit / Credit Card</option>
+              <option value="Cash">Cash</option>
+              <option value="Bank Transfer">Net Banking / Transfer</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <input type="text" class="form-control" id="form-exp-desc" placeholder="e.g. Weekly supermarket run">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control" id="form-exp-date">
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; margin-top:12px;">Save Record</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: ADD BILL
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-add-bill">
+      <div class="modal-panel">
+        <button class="modal-close-btn" id="add-bill-modal-close">✕</button>
+        <h3 style="margin-bottom:16px;">Add Bill</h3>
+
+        <form id="add-bill-form">
+          <div class="form-group">
+            <label class="form-label">Bill Name</label>
+            <input type="text" class="form-control" id="bill-name" placeholder="e.g. Electricity Bill" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Amount (₹)</label>
+            <input type="number" class="form-control" id="bill-amount" placeholder="1450" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Due Date</label>
+            <input type="date" class="form-control" id="bill-duedate" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select class="form-control" id="bill-category">
+              <option value="Bills & Utilities">Bills & Utilities</option>
+              <option value="Housing">Housing (Rent / Society)</option>
+              <option value="Insurance">Insurance</option>
+              <option value="Education">Education Fees</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; margin-top:12px;">Save Bill</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: ADD SUBSCRIPTION
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-add-sub">
+      <div class="modal-panel">
+        <button class="modal-close-btn" id="add-sub-modal-close">✕</button>
+        <h3 style="margin-bottom:16px;">Add Subscription</h3>
+
+        <form id="add-sub-form">
+          <div class="form-group">
+            <label class="form-label">Subscription Name</label>
+            <input type="text" class="form-control" id="sub-name" placeholder="e.g. Netflix Standard" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Amount (₹)</label>
+            <input type="number" class="form-control" id="sub-amount" placeholder="499" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Frequency</label>
+            <select class="form-control" id="sub-frequency">
+              <option value="Monthly">Monthly</option>
+              <option value="Yearly">Yearly</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Renewal Date</label>
+            <input type="date" class="form-control" id="sub-renewal-date" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select class="form-control" id="sub-category">
+              <option value="Entertainment">Entertainment</option>
+              <option value="Education">Education & Productivity</option>
+              <option value="Emergency">Health & Fitness</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; margin-top:12px;">Save Subscription</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: ADD INSURANCE
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-add-insurance">
+      <div class="modal-panel">
+        <button class="modal-close-btn" id="add-ins-modal-close">✕</button>
+        <h3 style="margin-bottom:16px;">Add Insurance Policy</h3>
+
+        <form id="add-ins-form">
+          <div class="form-group">
+            <label class="form-label">Policy Name / Insurer</label>
+            <input type="text" class="form-control" id="ins-name" placeholder="e.g. Star Health Comprehensive" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select class="form-control" id="ins-type">
+              <option value="Health Insurance">Health Insurance</option>
+              <option value="Life Insurance">Life Insurance</option>
+              <option value="Vehicle Insurance">Vehicle Insurance</option>
+              <option value="Other Insurance">Other Insurance</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Monthly Premium (₹)</label>
+            <input type="number" class="form-control" id="ins-premium" placeholder="1200" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Renewal Date</label>
+            <input type="date" class="form-control" id="ins-renewal-date" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Coverage Details</label>
+            <input type="text" class="form-control" id="ins-coverage" placeholder="e.g. ₹10 Lakhs Coverage">
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; margin-top:12px;">Save Policy</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: CATEGORY DETAIL DRILL-DOWN
+         ========================================================================== -->
+    <div class="modal-backdrop" id="modal-category-detail">
+      <div class="modal-panel">
+        <button class="modal-close-btn" id="cat-detail-close">✕</button>
+        <h3 id="cat-detail-title" style="margin-bottom:12px;">Category Detail</h3>
+
+        <div class="glass-card" style="padding:16px; margin-bottom:16px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span style="color:var(--text-muted);">Spent:</span>
+            <span style="font-weight:700;" id="cat-detail-spent">₹0</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span style="color:var(--text-muted);">Planned Budget:</span>
+            <span style="font-weight:700;" id="cat-detail-planned">₹0</span>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted);">Remaining Buffer:</span>
+            <span style="font-weight:700; color:var(--income-mint);" id="cat-detail-remaining">₹0</span>
+          </div>
+          <div style="font-size:0.78rem; color:var(--accent-cyan); margin-top:10px;" id="cat-detail-reasoning"></div>
+        </div>
+
+        <h4 style="font-size:0.95rem; margin-bottom:10px;">Transactions in this category:</h4>
+        <div id="cat-detail-tx-list" style="max-height:240px; overflow-y:auto;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- End #app -->
+
+  <!-- App Bootstrap Module -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

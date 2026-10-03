@@ -1,0 +1,20 @@
+{
+  "name": "finvoice",
+  "version": "1.0.0",
+  "description": "FinVoice - Voice-First Personal Money Management and AI Planning Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "finvoice",
+    "finance",
+    "ai",
+    "voice",
+    "budgeting",
+    "planning-agent"
+  ],
+  "author": "FinVoice Team",
+  "license": "MIT"
+}
